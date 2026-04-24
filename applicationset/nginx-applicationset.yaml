@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: multi-cluster-nginx
+  namespace: argocd
+spec:
+  generators:
+  - clusters: {}
+
+  template:
+    metadata:
+      name: '{{name}}-nginx'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/msujith1319/<your-repo-name>.git
+        targetRevision: main
+        path: nginx
+      destination:
+        server: '{{server}}'
+        namespace: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
