@@ -1,16 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: list-cluster-nginx
+  name: list-nginx
   namespace: argocd
 spec:
   generators:
   - list:
       elements:
       - name: worker1
-        server: https://6EEF8E9BA5C12F2909E3608A0000D4FD.gr7.us-east-1.eks.amazonaws.com
+        server: https://6EEF8E9BA5C12F2909E3608A0000D4FD.gr7.us-east-1.eks.amazonaws.com   # change if needed
+        namespace: default
       - name: worker2
         server: https://0AFC1AE30C6D1813584A628C769D2B9C.gr7.us-east-1.eks.amazonaws.com
+        namespace: default
 
   template:
     metadata:
@@ -23,4 +25,8 @@ spec:
         path: apps/nginx
       destination:
         server: '{{server}}'
-        namespace: default
+        namespace: '{{namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
