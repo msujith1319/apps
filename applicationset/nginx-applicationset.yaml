@@ -13,9 +13,9 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/msujith1319/<your-repo-name>.git
+        repoURL: https://github.com/msujith1319/apps.git
         targetRevision: main
-        path: nginx
+        path: apps/nginx
       destination:
         server: '{{server}}'
         namespace: default
